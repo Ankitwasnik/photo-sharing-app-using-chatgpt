@@ -1,8 +1,11 @@
 package com.talentica.appusingchatgpt.service;
 
+import com.talentica.appusingchatgpt.dto.CustomUserDetails;
 import com.talentica.appusingchatgpt.model.User;
 import com.talentica.appusingchatgpt.repository.UserRepository;
+import java.util.Collections;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,14 +22,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     User user = userRepository.findByUsername(username)
         .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 
-    return org.springframework.security.core.userdetails.User.builder()
-        .username(user.getUsername())
-        .password(user.getPassword())
-        .authorities("ROLE_USER")
-        .accountExpired(false)
-        .accountLocked(false)
-        .credentialsExpired(false)
-        .disabled(!user.getActive())
-        .build();
+    return new CustomUserDetails(
+        user.getId(),
+        user.getUsername(),
+        user.getPassword(),
+        Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"))
+    );
   }
 }
