@@ -3,8 +3,12 @@ package com.talentica.appusingchatgpt.controller;
 import com.talentica.appusingchatgpt.dto.CustomUserDetails;
 import com.talentica.appusingchatgpt.dto.PostDTO;
 import com.talentica.appusingchatgpt.dto.PostResponseDTO;
+import com.talentica.appusingchatgpt.dto.PostTrendDTO;
+import com.talentica.appusingchatgpt.enums.TimeRange;
 import com.talentica.appusingchatgpt.service.PostService;
 import jakarta.validation.Valid;
+import java.time.Instant;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -40,6 +44,14 @@ public class PostController {
     Pageable pageable = PageRequest.of(page, size);
     Page<PostResponseDTO> postResponses = postService.getAllPosts(pageable);
     return new ResponseEntity<>(postResponses, HttpStatus.OK);
+  }
+
+  @GetMapping("/trend")
+  public ResponseEntity<List<PostTrendDTO>> getPostTrend(@RequestParam("timeRange") TimeRange timeRange,
+      @RequestParam("startDateTime") Instant startDateTime,
+      @RequestParam("endDateTime") Instant endDateTime) {
+    List<PostTrendDTO> postTrend = postService.getPostTrend(timeRange, startDateTime, endDateTime);
+    return new ResponseEntity<>(postTrend, HttpStatus.OK);
   }
 }
 
