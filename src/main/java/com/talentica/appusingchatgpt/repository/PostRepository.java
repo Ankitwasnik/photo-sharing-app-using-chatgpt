@@ -1,6 +1,7 @@
 package com.talentica.appusingchatgpt.repository;
 
 import com.talentica.appusingchatgpt.model.Post;
+import com.talentica.appusingchatgpt.model.User;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,5 +19,10 @@ public interface PostRepository extends JpaRepository<Post, Long> {
       "GROUP BY period " +
       "ORDER BY period", nativeQuery = true)
   List<Object[]> getPostTrend(String dateTrunc, LocalDateTime startDateTime, LocalDateTime endDateTime);
+
+
+  int countByUser(User user);
+
+  List<Post> findByUser(User user);
 
 }

@@ -34,5 +34,11 @@ public class UserController {
     return new ResponseEntity<>(userResponse, HttpStatus.OK);
   }
 
+  @GetMapping("/{userId}/ratings")
+  public ResponseEntity<Integer> getUserRating(@PathVariable("userId") Long userId) {
+    int rating = userService.calculateRating(userId);
+    return new ResponseEntity<>(rating, HttpStatus.OK);
+  }
+
 }
 

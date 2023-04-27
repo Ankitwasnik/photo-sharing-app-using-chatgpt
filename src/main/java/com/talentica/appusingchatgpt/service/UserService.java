@@ -6,4 +6,5 @@ import com.talentica.appusingchatgpt.dto.UserResponseDTO;
 public interface UserService {
   UserResponseDTO createUser(UserDTO userDTO);
   UserResponseDTO getUserById(Long id);
+  int calculateRating(Long userId);
 }

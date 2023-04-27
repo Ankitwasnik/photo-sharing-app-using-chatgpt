@@ -1,4 +1,4 @@
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS  users (
     id SERIAL PRIMARY KEY,
     username VARCHAR(255) NOT NULL UNIQUE,
     email VARCHAR(255) NOT NULL UNIQUE,
@@ -13,7 +13,7 @@ CREATE TABLE users (
     deleted_at TIMESTAMP
 );
 
-CREATE TABLE posts (
+CREATE TABLE IF NOT EXISTS  posts (
     id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
     photo_url VARCHAR(2048) NOT NULL,
@@ -25,7 +25,7 @@ CREATE TABLE posts (
     FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
-CREATE TABLE reactions (
+CREATE TABLE IF NOT EXISTS  reactions (
     id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
     post_id INT NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE reactions (
     FOREIGN KEY (post_id) REFERENCES posts (id)
 );
 
-CREATE TABLE comments (
+CREATE TABLE IF NOT EXISTS  comments (
     id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
     post_id INT NOT NULL,
