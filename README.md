@@ -1,4 +1,9 @@
-# photo-sharing-app-using-chatgpt
+# Photo sharing app using chatgpt
+
+## Tools/Technologies Used
+    Java 17
+    Spring Boot
+    Postgres
 
 ### Functionalities:
     Create User
